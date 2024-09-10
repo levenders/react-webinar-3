@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const getCountTitle = count => {
+  if ((count % 100 > 11 && count % 100 <= 19) || count % 10 === 1) {
+    return `Выделяли ${count} раз`;
+  } else {
+    return `Выделяли ${count} раза`;
+  }
+};
