@@ -3,7 +3,10 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      index: initState.list ? initState.list.length + 1 : 1,
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -44,7 +47,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.index, title: 'Новая запись' }],
+      index: this.state.index + 1,
     });
   }
 
