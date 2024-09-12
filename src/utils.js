@@ -27,10 +27,10 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export const getCountTitle = count => {
-  if ((count % 100 > 11 && count % 100 <= 19) || count % 10 === 1) {
-    return ` | Выделяли ${count} раз`;
+export const getCountDeclination = count => {
+  if ((count % 100 > 11 && count % 100 <= 19) || count % 10 === 1 || count % 10 === 0) {
+    return `${count} раз`;
   } else {
-    return ` | Выделяли ${count} раза`;
+    return `${count} раза`;
   }
 };
