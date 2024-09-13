@@ -34,3 +34,5 @@ export const getCountDeclination = count => {
     return `${count} раза`;
   }
 };
+
+export const getMaxCode = arr => arr.reduce((max, item) => Math.max(max, item.code) + 1, 0);
