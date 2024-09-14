@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import { getCountDeclination } from './utils';
+import { getPluralizedCount } from './utils';
 
 /**
  * Приложение
@@ -29,7 +29,7 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}
-                  {item.count > 0 && ` | Выделяли ${getCountDeclination(item.count)}`}
+                  {item.count > 0 && ` | Выделяли ${getPluralizedCount(item.count)}`}
                 </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>

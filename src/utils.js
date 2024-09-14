@@ -27,12 +27,15 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export const getCountDeclination = count => {
-  if ((count % 100 > 11 && count % 100 <= 19) || count % 10 === 1 || count % 10 === 0) {
-    return `${count} раз`;
-  } else {
+export const getPluralizedCount = count => {
+  const isInLowRange = count % 10 >= 2 && count % 10 <= 4;
+  const isInSpecialRange = count % 100 >= 11 && count % 100 <= 19;
+
+  if (isInLowRange && !isInSpecialRange) {
     return `${count} раза`;
   }
+
+  return `${count} раз`;
 };
 
 export const getMaxCode = arr => arr.reduce((max, item) => Math.max(max, item.code) + 1, 0);
