@@ -27,15 +27,27 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export const getPluralizedCount = count => {
-  const isInLowRange = count % 10 >= 2 && count % 10 <= 4;
-  const isInSpecialRange = count % 100 >= 11 && count % 100 <= 19;
+export function getPluralizedCount(count) {
+  return universalPluralize(count, ['раз', 'раза', 'раз']);
+}
 
-  if (isInLowRange && !isInSpecialRange) {
-    return `${count} раза`;
+function universalPluralize(count, endings) {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+    return `${count} ${endings[2]}`;
   }
 
-  return `${count} раз`;
-};
+  if (lastDigit === 1) {
+    return `${count} ${endings[0]}`;
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return `${count} ${endings[1]}`;
+  }
+
+  return `${count} ${endings[2]}`;
+}
 
 export const getMaxCode = arr => arr.reduce((max, item) => Math.max(max, item.code) + 1, 0);
