@@ -18,7 +18,7 @@ function CartModal({ cart, removeFromCart, closeModal }) {
         </Head>
         {cart.length ? (
           <div className="CartModal-content">
-            <List list={cart} buttonHandler={removeFromCart} buttonLabel={'Удалить'} />
+            <List list={cart} buttonLabel={'Удалить'} buttonHandler={removeFromCart} />
             <div className="CartModal-total">
               <strong>Итого: {totalPrice} ₽</strong>
             </div>
