@@ -1,0 +1,11 @@
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.Cart-empty {
+  display: flex;
+  justify-content: center;
+}
