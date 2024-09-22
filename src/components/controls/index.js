@@ -15,7 +15,7 @@ function Controls({ buttonHandler, totalPrice, totalItems, buttonLabel }) {
             few: 'товара',
             many: 'товаров',
           })}
-          / {totalPrice} ₽
+          / {totalPrice}
         </div>
       </div>
       <button onClick={() => buttonHandler()}>{buttonLabel}</button>
@@ -25,7 +25,7 @@ function Controls({ buttonHandler, totalPrice, totalItems, buttonLabel }) {
 
 Controls.propTypes = {
   buttonHandler: PropTypes.func,
-  totalPrice: PropTypes.number,
+  totalPrice: PropTypes.string,
   totalCount: PropTypes.number,
   buttonLabel: PropTypes.node,
 };

@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { getPriceRu } from '../../utils';
 import './style.css';
 
 function Item({ item, buttonHandler, buttonLabel }) {
-  const resultPrice = !item.quantity ? item.price : item.price * item.quantity;
-
   return (
     <div className={'Item'}>
       <div className="Item-code">{item.code}</div>
       <div className="Item-content">
         <div className="Item-title">{item.title}</div>
-        <div className="Item-price">{resultPrice} ₽</div>
+        <div className="Item-price">{getPriceRu(item.price)}</div>
         {item.quantity && <div className="Item-price">{item.quantity} шт.</div>}
       </div>
       <div className="Item-actions">
@@ -24,6 +23,7 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
+    price: PropTypes.number,
     quantity: PropTypes.number,
   }).isRequired,
   buttonHandler: PropTypes.func,
