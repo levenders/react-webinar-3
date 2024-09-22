@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import CartModal from './components/cart-modal';
+import Cart from './components/cart';
 import Controls from './components/controls';
 import Head from './components/head';
 import List from './components/list';
 import PageLayout from './components/page-layout';
+import { getPriceRu } from './utils';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -14,6 +15,8 @@ function App({ store }) {
 
   const cart = store.getState().cart;
   const list = store.getState().list;
+  const totalItems = cart.length;
+  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const callbacks = {
     addToCart: useCallback(
@@ -35,24 +38,22 @@ function App({ store }) {
     }, []),
   };
 
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
   return (
     <PageLayout>
       <Head title="Магазин" />
       <Controls
         buttonLabel={'Перейти'}
         totalItems={totalItems}
-        totalPrice={totalPrice}
+        totalPrice={getPriceRu(totalPrice)}
         buttonHandler={callbacks.toggleCartVisible}
       />
       <List list={list} buttonLabel={'Добавить'} buttonHandler={callbacks.addToCart} />
       {isCartOpen && (
-        <CartModal
+        <Cart
           cart={cart}
           removeFromCart={callbacks.removeFromCart}
           closeModal={callbacks.toggleCartVisible}
+          totalPrice={getPriceRu(totalPrice)}
         />
       )}
     </PageLayout>
