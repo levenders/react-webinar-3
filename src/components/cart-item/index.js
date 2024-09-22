@@ -4,8 +4,8 @@ import React from 'react';
 import { getPriceRu } from '../../utils';
 import './style.css';
 
-function Item({ item, buttonHandler, buttonLabel }) {
-  const cn = bem('Item');
+function CartItem({ item, buttonHandler, buttonLabel }) {
+  const cn = bem('CartItem');
 
   return (
     <div className={cn()}>
@@ -13,6 +13,7 @@ function Item({ item, buttonHandler, buttonLabel }) {
       <div className={cn('content')}>
         <div className={cn('title')}>{item.title}</div>
         <div>{getPriceRu(item.price)}</div>
+        <div>{item.quantity} шт.</div>
       </div>
       <div className={cn('actions')}>
         <button onClick={() => buttonHandler(item.code)}>{buttonLabel}</button>
@@ -21,14 +22,15 @@ function Item({ item, buttonHandler, buttonLabel }) {
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
+    quantity: PropTypes.number,
   }).isRequired,
   buttonHandler: PropTypes.func,
   buttonLabel: PropTypes.node,
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

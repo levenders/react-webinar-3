@@ -9,7 +9,7 @@ function Cart({ cart, removeFromCart, closeModal, totalPrice }) {
     <ModalLayout titleModal={'Корзина'} closeModal={closeModal}>
       {cart.length ? (
         <div>
-          <List list={cart} buttonLabel={'Удалить'} buttonHandler={removeFromCart} />
+          <List list={cart} isCart buttonLabel={'Удалить'} buttonHandler={removeFromCart} />
           <div className="Cart-total">
             <strong>Итого: {totalPrice}</strong>
           </div>

@@ -1,0 +1,39 @@
+.CartItem {
+  display: flex;
+  justify-content: space-between;
+  transition: background-color 1s;
+  align-items: center;
+}
+
+.CartItem_selected {
+  background: #75aaf1;
+  color: #fff;
+}
+
+.CartItem-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.CartItem-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+  padding: 20px 10px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.CartItem-title {
+  width: 100%;
+}
+
+.CartItem-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.CartItem-actions button {
+  cursor: pointer;
+}
