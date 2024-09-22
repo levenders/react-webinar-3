@@ -45,13 +45,16 @@ class Store {
 
     if (existingItem) {
       existingItem.quantity += 1;
+      existingItem.totalPrice = item.price * existingItem.quantity;
       this.setState({ ...this.state, cart });
       return;
     }
 
     if (item) {
-      cart.push({ ...item, quantity: 1 });
-      this.setState({ ...this.state, cart });
+      this.setState({
+        ...this.state,
+        cart: [...cart, { ...item, quantity: 1, totalPrice: item.price }],
+      });
     }
   }
 
