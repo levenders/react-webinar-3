@@ -1,0 +1,26 @@
+.ModalLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000b2;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.ModalLayout-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 960px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ModalLayout-content {
+  margin: 50px 5px;
+}
