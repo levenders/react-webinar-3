@@ -6,10 +6,18 @@
   font-size: 18px;
 }
 
+.BasketTool-link {
+  width: 100%;
+  color: #0087e9;
+  font-size: 18px;
+}
+
 .BasketTool-label {
+  white-space: nowrap;
 }
 
 .BasketTool-total {
+  white-space: nowrap;
   font-weight: bold;
   margin: 0 20px;
 }
