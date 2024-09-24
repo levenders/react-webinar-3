@@ -1,0 +1,18 @@
+.ProductContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 40px;
+
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.ProductContent-price {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ProductContent-button {
+  align-self: flex-start;
+}
