@@ -12,7 +12,6 @@ function Product() {
   const { id } = useParams();
 
   useEffect(() => {
-    store.actions.catalog.load(); // УБЕРИ
     store.actions.product.load(id);
   }, []);
 

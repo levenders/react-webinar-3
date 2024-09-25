@@ -38,7 +38,7 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 /**
  * Функция для получения перевода по ключу, включая вложенные ключи.
  * @param {string} lang - Язык (например, 'ru' или 'en')
- * @param {string} label - Ключ для перевода (например, 'title.main' или 'button.add')
+ * @param {string} label - Ключ для перевода (например, 'title.main' или 'label')
  * @returns {string} - Переведенная строка
  */
 export const translate = (lang, label) => {
@@ -54,3 +54,56 @@ export const translate = (lang, label) => {
 
   return translation;
 };
+
+/**
+ * Функция для создания страниц пагинации с многоточием.
+ * @param {Array} pages - Массив для хранения объектов страниц
+ * @param {number} pagesCount - Общее количество страниц
+ * @param {number} currentPage - Текущая страница
+ */
+export function createPages(pages, pagesCount, currentPage) {
+  const addPage = (id, number, disabled = false) => pages.push({ id, number, disabled });
+  const addEllipsis = () => addPage(Math.random(), '…', true);
+
+  if (pagesCount <= 1) return;
+
+  if (currentPage > 3 && currentPage < pagesCount) {
+    addPage(1, 1);
+    addEllipsis();
+
+    for (let i = currentPage - 1; i <= currentPage + 1 && i <= pagesCount; i++) {
+      addPage(i, i);
+    }
+
+    if (currentPage + 1 < pagesCount) {
+      addEllipsis();
+      addPage(pagesCount, pagesCount);
+    }
+  } else if (currentPage === pagesCount) {
+    addPage(1, 1);
+    addEllipsis();
+
+    for (let i = currentPage - 2; i <= currentPage; i++) {
+      addPage(i, i);
+    }
+  } else if (currentPage === 3) {
+    addPage(1, 1);
+    for (let i = 2; i <= Math.min(4, pagesCount); i++) {
+      addPage(i, i);
+    }
+
+    if (pagesCount > 4) {
+      addEllipsis();
+      addPage(pagesCount, pagesCount);
+    }
+  } else {
+    for (let i = 1; i <= Math.min(3, pagesCount); i++) {
+      addPage(i, i);
+    }
+
+    if (pagesCount > 3) {
+      addEllipsis();
+      addPage(pagesCount, pagesCount);
+    }
+  }
+}
