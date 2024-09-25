@@ -1,14 +1,17 @@
 import { memo, useCallback, useEffect } from 'react';
-import Item from '../../components/item';
-import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
+import Head from '../../components/head';
+import Item from '../../components/item';
 import List from '../../components/list';
-import useStore from '../../store/use-store';
+import PageLayout from '../../components/page-layout';
+import { useLanguage } from '../../context/language-context';
 import useSelector from '../../store/use-selector';
+import useStore from '../../store/use-store';
+import { translate } from '../../utils';
 
 function Main() {
   const store = useStore();
+  const { language } = useLanguage();
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -38,7 +41,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={translate(language, 'title.main')} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
     </PageLayout>

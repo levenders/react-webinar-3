@@ -1,3 +1,4 @@
+import { translateLibrary } from './translate';
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -33,3 +34,23 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Функция для получения перевода по ключу, включая вложенные ключи.
+ * @param {string} lang - Язык (например, 'ru' или 'en')
+ * @param {string} label - Ключ для перевода (например, 'title.main' или 'button.add')
+ * @returns {string} - Переведенная строка
+ */
+export const translate = (lang, label) => {
+  const keys = label.split('.');
+  let translation = translateLibrary[lang];
+
+  for (const key of keys) {
+    if (translation[key] === undefined) {
+      return label;
+    }
+    translation = translation[key];
+  }
+
+  return translation;
+};

@@ -1,28 +1,31 @@
 import { cn as bem } from '@bem-react/classname';
 import { memo } from 'react';
-import { numberFormat } from '../../utils';
-
+import { useLanguage } from '../../context/language-context';
+import { numberFormat, translate } from '../../utils';
 import './style.css';
 
 function ProductContent({ content, onAdd }) {
   const cn = bem('ProductContent');
+  const { language } = useLanguage();
   const { description, price, edition, madeIn, category } = content;
 
   return (
     <div className={cn()}>
       <div className={cn('description')}>{description}</div>
       <div className={cn('madeIn')}>
-        Страна производитель: <b>{madeIn}</b>
+        {translate(language, 'madeIn')}: <b>{madeIn}</b>
       </div>
       <div className={cn('category')}>
-        Категория: <b>{category}</b>
+        {translate(language, 'category')}: <b>{category}</b>
       </div>
       <div className={cn('edition')}>
-        Год выпуска: <b>{edition}</b>
+        {translate(language, 'edition')}: <b>{edition}</b>
       </div>
-      <div className={cn('price')}>Цена: {numberFormat(price)}</div>
+      <div className={cn('price')}>
+        {translate(language, 'price')}: {numberFormat(price)}
+      </div>
       <button className={cn('button')} onClick={onAdd}>
-        Добавить
+        {translate(language, 'button.add')}
       </button>
     </div>
   );

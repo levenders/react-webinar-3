@@ -2,27 +2,26 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { numberFormat, plural } from '../../utils';
+import { useLanguage } from '../../context/language-context';
+import { numberFormat, plural, translate } from '../../utils';
 import './style.css';
 
 function BasketTool({ sum, amount, onOpen }) {
   const cn = bem('BasketTool');
+  const { language } = useLanguage();
+
   return (
     <div className={cn()}>
       <Link className={cn('link')} to="/">
-        Главная
+        {translate(language, 'link')}
       </Link>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{translate(language, 'label')}:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, {
-              one: 'товар',
-              few: 'товара',
-              many: 'товаров',
-            })} / ${numberFormat(sum)} ₽`
-          : `пусто`}
+          ? `${amount} ${plural(amount, translate(language, 'plural'))} / ${numberFormat(sum)} ₽`
+          : translate(language, 'empty')}
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{translate(language, 'button.open')}</button>
     </div>
   );
 }
