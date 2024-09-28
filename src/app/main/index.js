@@ -14,21 +14,20 @@ function Main() {
   const store = useStore();
   const { language } = useLanguage();
 
-  const quantityProducts = 10;
-
   useEffect(() => {
-    store.actions.catalog.load(0);
-    store.actions.catalog.loadCount();
+    store.actions.catalog.load();
   }, []);
 
   const select = useSelector(state => {
-    const listCount = state.catalog.listCount;
+    const listCount = state.catalog.count;
+    const quantityProducts = state.catalog.limit;
+
     return {
       list: state.catalog.list,
       amount: state.basket.amount,
       sum: state.basket.sum,
       listCount,
-      currentPage: state.pagination.currentPage,
+      page: state.catalog.page,
       pagesCount: Math.ceil(listCount / quantityProducts),
     };
   });
@@ -36,10 +35,10 @@ function Main() {
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    setCurrentPage: useCallback(
+    setPage: useCallback(
       page => {
-        store.actions.pagination.setCurrentPage(page);
-        store.actions.catalog.load(page);
+        store.actions.catalog.setPage(page);
+        store.actions.catalog.load();
       },
       [store],
     ),
@@ -57,11 +56,7 @@ function Main() {
       <Head title={translate(language, 'title.main')} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <Pagination
-        pagesCount={select.pagesCount}
-        currentPage={select.currentPage}
-        setCurrentPage={callbacks.setCurrentPage}
-      />
+      <Pagination pagesCount={select.pagesCount} page={select.page} setPage={callbacks.setPage} />
     </PageLayout>
   );
 }

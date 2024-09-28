@@ -4,15 +4,15 @@ import React from 'react';
 import { createPages } from '../../utils';
 import './style.css';
 
-function Pagination({ pagesCount, currentPage, setCurrentPage }) {
+function Pagination({ pagesCount, page, setPage }) {
   const cn = bem('Pagination');
   const pages = [];
 
   const setPagination = page => {
-    setCurrentPage(page);
+    setPage(page);
   };
 
-  createPages(pages, pagesCount, currentPage);
+  createPages(pages, pagesCount, page);
 
   return (
     <div className={cn()}>
@@ -23,7 +23,7 @@ function Pagination({ pagesCount, currentPage, setCurrentPage }) {
               <span className={cn('ellipsis')}>{number}</span>
             ) : (
               <button
-                className={currentPage === id ? cn('active') : cn('page')}
+                className={page === id ? cn('active') : cn('page')}
                 onClick={() => setPagination(number)}
               >
                 {number}
@@ -37,11 +37,9 @@ function Pagination({ pagesCount, currentPage, setCurrentPage }) {
 }
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
   pagesCount: PropTypes.number.isRequired,
-  quantityProducts: PropTypes.number.isRequired,
-  setCurrentPage: PropTypes.func,
-  addPageItem: PropTypes.func.isRequired,
+  setPage: PropTypes.func,
 };
 
 export default Pagination;

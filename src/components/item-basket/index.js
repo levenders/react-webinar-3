@@ -14,7 +14,10 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
-    closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    closeModal: useCallback(() => {
+      store.actions.modals.close();
+      store.actions.product.load(props.item._id);
+    }, [store]),
   };
 
   return (
