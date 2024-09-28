@@ -1,8 +1,8 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
 import { numberFormat, plural, translate } from '../../utils';
+import RedirectLink from '../redirect-link';
 import './style.css';
 
 function BasketTool({ language, sum, amount, onOpen }) {
@@ -10,9 +10,7 @@ function BasketTool({ language, sum, amount, onOpen }) {
 
   return (
     <div className={cn()}>
-      <Link className={cn('link')} to="/">
-        {translate(language, 'link')}
-      </Link>
+      <RedirectLink language={language} translateTitle="link.home" to="/" />
       <span className={cn('label')}>{translate(language, 'label')}:</span>
       <span className={cn('total')}>
         {amount

@@ -1,6 +1,8 @@
 export const translateLibrary = {
   ru: {
-    link: 'Главная',
+    link: {
+      home: 'Главная',
+    },
     title: {
       main: 'Магазин',
       basket: 'Корзина',
