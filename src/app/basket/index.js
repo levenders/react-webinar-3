@@ -28,16 +28,20 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return <ItemBasket item={item} language={language} onRemove={callbacks.removeFromBasket} />;
       },
-      [callbacks.removeFromBasket],
+      [callbacks.removeFromBasket, language],
     ),
   };
 
   return (
-    <ModalLayout title={translate(language, 'title.basket')} onClose={callbacks.closeModal}>
+    <ModalLayout
+      title={translate(language, 'title.basket')}
+      language={language}
+      onClose={callbacks.closeModal}
+    >
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal language={language} sum={select.sum} />
     </ModalLayout>
   );
 }

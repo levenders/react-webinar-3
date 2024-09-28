@@ -4,11 +4,13 @@ import BasketTool from '../../components/basket-tool';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import ProductContent from '../../components/product-content';
+import { useLanguage } from '../../context/language-context';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
 
 function Product() {
   const store = useStore();
+  const { language } = useLanguage();
   const { id } = useParams();
 
   useEffect(() => {
@@ -32,8 +34,13 @@ function Product() {
   return (
     <PageLayout>
       <Head title={select.title} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <ProductContent content={select.content} onAdd={callbacks.addToBasket} />
+      <BasketTool
+        language={language}
+        amount={select.amount}
+        sum={select.sum}
+        onOpen={callbacks.openModalBasket}
+      />
+      <ProductContent content={select.content} language={language} onAdd={callbacks.addToBasket} />
     </PageLayout>
   );
 }

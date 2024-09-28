@@ -1,13 +1,11 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
-import { useLanguage } from '../../context/language-context';
 import { numberFormat, translate } from '../../utils';
 import './style.css';
 
-function BasketTotal({ sum }) {
+function BasketTotal({ language, sum }) {
   const cn = bem('BasketTotal');
-  const { language } = useLanguage();
 
   return (
     <div className={cn()}>
@@ -19,11 +17,8 @@ function BasketTotal({ sum }) {
 }
 
 BasketTotal.propTypes = {
-  sum: PropTypes.number,
-};
-
-BasketTotal.defaultProps = {
-  sum: 0,
+  language: PropTypes.string,
+  sum: PropTypes.number.isRequired,
 };
 
 export default memo(BasketTotal);

@@ -46,15 +46,20 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      item => <Item item={item} onAdd={callbacks.addToBasket} />,
-      [callbacks.addToBasket],
+      item => <Item item={item} language={language} onAdd={callbacks.addToBasket} />,
+      [callbacks.addToBasket, language],
     ),
   };
 
   return (
     <PageLayout>
       <Head title={translate(language, 'title.main')} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketTool
+        onOpen={callbacks.openModalBasket}
+        language={language}
+        amount={select.amount}
+        sum={select.sum}
+      />
       <List list={select.list} renderItem={renders.item} />
       <Pagination pagesCount={select.pagesCount} page={select.page} setPage={callbacks.setPage} />
     </PageLayout>

@@ -1,12 +1,10 @@
 import { cn as bem } from '@bem-react/classname';
 import { memo } from 'react';
-import { useLanguage } from '../../context/language-context';
 import { numberFormat, translate } from '../../utils';
 import './style.css';
 
-function ProductContent({ content, onAdd }) {
+function ProductContent({ language, content, onAdd }) {
   const cn = bem('ProductContent');
-  const { language } = useLanguage();
   const { description, price, edition, madeIn, category } = content;
 
   return (

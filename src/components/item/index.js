@@ -2,13 +2,11 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../../context/language-context';
 import { numberFormat, translate } from '../../utils';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-  const { language } = useLanguage();
 
   const callbacks = {
     onAdd: e => props.onAdd(props.item._id),
@@ -22,7 +20,7 @@ function Item(props) {
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{translate(language, 'button.add')}</button>
+        <button onClick={callbacks.onAdd}>{translate(props.language, 'button.add')}</button>
       </div>
     </div>
   );
@@ -30,15 +28,12 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
+    language: PropTypes.string,
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
 };
 
 export default memo(Item);
