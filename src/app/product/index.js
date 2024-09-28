@@ -15,6 +15,9 @@ function Product() {
 
   useEffect(() => {
     store.actions.product.load(id);
+    return () => {
+      store.actions.product.clear();
+    };
   }, []);
 
   const select = useSelector(state => ({

@@ -30,6 +30,12 @@ class Product extends StoreModule {
       'Загружен товар c производителем и категорией из АПИ',
     );
   }
+
+  async clear() {
+    this.setState({
+      product: {},
+    });
+  }
 }
 
 export default Product;
