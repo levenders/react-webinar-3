@@ -22,13 +22,29 @@ function Basket() {
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
-    closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    closeModal: useCallback(() => {
+      store.actions.modals.close();
+    }, [store]),
+    navigateToProduct: useCallback(
+      id => {
+        store.actions.modals.close();
+        store.actions.product.load(id);
+      },
+      [store.actions.modals],
+    ),
   };
 
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} language={language} onRemove={callbacks.removeFromBasket} />;
+        return (
+          <ItemBasket
+            item={item}
+            language={language}
+            onNavigate={callbacks.navigateToProduct}
+            onRemove={callbacks.removeFromBasket}
+          />
+        );
       },
       [callbacks.removeFromBasket, language],
     ),

@@ -1,21 +1,16 @@
 import { cn as bem } from '@bem-react/classname';
 import { default as propTypes, default as PropTypes } from 'prop-types';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import useStore from '../../store/use-store';
 import { numberFormat, translate } from '../../utils';
 import './style.css';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-  const store = useStore();
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
-    closeModal: useCallback(() => {
-      store.actions.modals.close();
-      store.actions.product.load(props.item._id);
-    }, [store]),
+    onNavigate: () => props.onNavigate(props.item._id),
   };
 
   return (
@@ -24,7 +19,7 @@ function ItemBasket(props) {
       <Link
         className={cn('title')}
         to={`/product/${props.item._id}`}
-        onClick={callbacks.closeModal}
+        onClick={callbacks.onNavigate}
       >
         {props.item.title}
       </Link>
@@ -50,10 +45,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
+  closeModal: propTypes.func,
 };
 
 export default memo(ItemBasket);
