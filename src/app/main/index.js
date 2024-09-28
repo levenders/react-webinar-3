@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import BasketTool from '../../components/basket-tool';
 import Head from '../../components/head';
 import Item from '../../components/item';
@@ -13,10 +14,14 @@ import { translate } from '../../utils';
 function Main() {
   const store = useStore();
   const { language } = useLanguage();
+  const { pageNumber } = useParams();
+  const navigate = useNavigate();
+  const page = parseInt(pageNumber, 10) || 1;
 
   useEffect(() => {
+    store.actions.catalog.setPage(page);
     store.actions.catalog.load();
-  }, []);
+  }, [pageNumber]);
 
   const select = useSelector(state => {
     const listCount = state.catalog.count;
@@ -39,6 +44,7 @@ function Main() {
       page => {
         store.actions.catalog.setPage(page);
         store.actions.catalog.load();
+        navigate(`/page/${page}`);
       },
       [store],
     ),
