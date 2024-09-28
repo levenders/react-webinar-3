@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import BasketTool from '../../components/basket-tool';
 import Head from '../../components/head';
 import Loader from '../../components/loader';
+import MainTool from '../../components/main-tool';
 import PageLayout from '../../components/page-layout';
 import ProductContent from '../../components/product-content';
 import { useLanguage } from '../../context/language-context';
@@ -39,12 +40,14 @@ function Product() {
   return (
     <PageLayout>
       <Head title={select.title} />
-      <BasketTool
-        language={language}
-        amount={select.amount}
-        sum={select.sum}
-        onOpen={callbacks.openModalBasket}
-      />
+      <MainTool language={language}>
+        <BasketTool
+          language={language}
+          amount={select.amount}
+          sum={select.sum}
+          onOpen={callbacks.openModalBasket}
+        />
+      </MainTool>
       <Loader when={select.isLoading}>
         <ProductContent
           content={select.content}

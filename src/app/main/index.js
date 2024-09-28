@@ -5,6 +5,7 @@ import Head from '../../components/head';
 import Item from '../../components/item';
 import List from '../../components/list';
 import Loader from '../../components/loader';
+import MainTool from '../../components/main-tool';
 import PageLayout from '../../components/page-layout';
 import Pagination from '../../components/pagination';
 import { useLanguage } from '../../context/language-context';
@@ -63,12 +64,14 @@ function Main() {
   return (
     <PageLayout>
       <Head title={translate(language, 'title.main')} />
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        language={language}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <MainTool language={language}>
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          language={language}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </MainTool>
       <Loader when={select.isLoading}>
         <List list={select.list} renderItem={renders.item} />
         <Pagination pagesCount={select.pagesCount} page={select.page} setPage={callbacks.setPage} />

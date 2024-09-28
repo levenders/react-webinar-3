@@ -1,4 +1,7 @@
 .link {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
   width: 100%;
   color: #0087e9;
   font-size: 18px;

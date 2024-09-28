@@ -28,7 +28,9 @@ export const translateLibrary = {
     pcs: 'шт',
   },
   en: {
-    link: 'Main',
+    link: {
+      home: 'Main',
+    },
     title: {
       main: 'Shop',
       basket: 'Basket',
