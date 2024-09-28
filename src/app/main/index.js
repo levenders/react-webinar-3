@@ -4,6 +4,7 @@ import BasketTool from '../../components/basket-tool';
 import Head from '../../components/head';
 import Item from '../../components/item';
 import List from '../../components/list';
+import Loader from '../../components/loader';
 import PageLayout from '../../components/page-layout';
 import Pagination from '../../components/pagination';
 import { useLanguage } from '../../context/language-context';
@@ -26,8 +27,10 @@ function Main() {
   const select = useSelector(state => {
     const listCount = state.catalog.count;
     const quantityProducts = state.catalog.limit;
+    const isLoading = state.catalog.isLoading;
 
     return {
+      isLoading,
       list: state.catalog.list,
       amount: state.basket.amount,
       sum: state.basket.sum,
@@ -66,8 +69,10 @@ function Main() {
         amount={select.amount}
         sum={select.sum}
       />
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination pagesCount={select.pagesCount} page={select.page} setPage={callbacks.setPage} />
+      <Loader when={select.isLoading}>
+        <List list={select.list} renderItem={renders.item} />
+        <Pagination pagesCount={select.pagesCount} page={select.page} setPage={callbacks.setPage} />
+      </Loader>
     </PageLayout>
   );
 }

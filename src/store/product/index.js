@@ -7,11 +7,15 @@ class Product extends StoreModule {
 
   initState() {
     return {
+      isLoading: true,
       product: {},
     };
   }
 
   async load(id) {
+    this.setState({
+      isLoading: true,
+    });
     const response = await fetch(
       `/api/v1/articles/${id}?fields=title,description,price,edition,madeIn(title),category(title)`,
     );
@@ -26,6 +30,7 @@ class Product extends StoreModule {
         edition,
         madeIn: madeIn.title,
         category: category.title,
+        isLoading: false,
       },
       'Загружен товар c производителем и категорией из АПИ',
     );
