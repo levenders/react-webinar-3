@@ -3,18 +3,16 @@ import { memo } from 'react';
 import RedirectLink from '../redirect-link';
 import './style.css';
 
-function MainTool({ language, children }) {
+function Menu({ language }) {
   return (
-    <div className="MainTool">
+    <div className="menu">
       <RedirectLink language={language} translateTitle="link.home" to="/" />
-      {children}
     </div>
   );
 }
 
-MainTool.propTypes = {
+Menu.propTypes = {
   language: PropTypes.string,
-  children: PropTypes.node,
 };
 
-export default memo(MainTool);
+export default memo(Menu);

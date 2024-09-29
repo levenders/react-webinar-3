@@ -1,11 +1,13 @@
 import { memo, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import BasketTool from '../../components/basket-tool';
+import Col from '../../components/col';
 import Head from '../../components/head';
 import Loader from '../../components/loader';
-import MainTool from '../../components/main-tool';
+import Menu from '../../components/menu';
 import PageLayout from '../../components/page-layout';
 import ProductContent from '../../components/product-content';
+import Row from '../../components/row';
 import { useLanguage } from '../../context/language-context';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
@@ -40,14 +42,19 @@ function Product() {
   return (
     <PageLayout>
       <Head title={select.title} />
-      <MainTool language={language}>
-        <BasketTool
-          language={language}
-          amount={select.amount}
-          sum={select.sum}
-          onOpen={callbacks.openModalBasket}
-        />
-      </MainTool>
+      <Row>
+        <Col>
+          <Menu language={language} />
+        </Col>
+        <Col>
+          <BasketTool
+            language={language}
+            amount={select.amount}
+            sum={select.sum}
+            onOpen={callbacks.openModalBasket}
+          />
+        </Col>
+      </Row>
       <Loader when={select.isLoading}>
         <ProductContent
           content={select.content}
