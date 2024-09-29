@@ -56,7 +56,14 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      item => <Item item={item} language={language} onAdd={callbacks.addToBasket} />,
+      item => (
+        <Item
+          item={item}
+          link={`/product/${item._id}`}
+          language={language}
+          onAdd={callbacks.addToBasket}
+        />
+      ),
       [callbacks.addToBasket, language],
     ),
   };

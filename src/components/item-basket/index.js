@@ -16,11 +16,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link
-        className={cn('title')}
-        to={`/product/${props.item._id}`}
-        onClick={callbacks.onNavigate}
-      >
+      <Link className={cn('title')} to={props.link} onClick={callbacks.onNavigate}>
         {props.item.title}
       </Link>
       <div className={cn('right')}>
@@ -38,6 +34,7 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: PropTypes.shape({
+    link: propTypes.string,
     language: propTypes.string,
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,

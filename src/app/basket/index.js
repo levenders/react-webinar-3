@@ -40,6 +40,7 @@ function Basket() {
         return (
           <ItemBasket
             item={item}
+            link={`/product/${item._id}`}
             language={language}
             onNavigate={callbacks.navigateToProduct}
             onRemove={callbacks.removeFromBasket}

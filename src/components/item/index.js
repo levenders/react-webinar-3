@@ -15,7 +15,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link className={cn('title')} to={`/product/${props.item._id}`}>
+      <Link className={cn('title')} to={props.link}>
         {props.item.title}
       </Link>
       <div className={cn('actions')}>
@@ -28,6 +28,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
+    link: PropTypes.string,
     language: PropTypes.string,
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
