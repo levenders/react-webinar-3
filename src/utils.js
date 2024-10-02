@@ -33,3 +33,23 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Преобразвание категорий в форматированный список
+ * @param data {Array}
+ * @returns {Array}
+ */
+export const transformCategories = data => {
+  const options = [{ value: '', title: 'Все' }];
+
+  const processCategories = (parentId = null, depth = 0) =>
+    data
+      .filter(({ parent }) => (parent ? parent._id : null) === parentId)
+      .forEach(({ _id, title }) => {
+        options.push({ value: _id, title: `${'- '.repeat(depth)} ${title}` });
+        processCategories(_id, depth + 1);
+      });
+
+  processCategories();
+  return options;
+};

@@ -1,10 +1,11 @@
 import { memo, useCallback, useMemo } from 'react';
-import useTranslate from '../../hooks/use-translate';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import Select from '../../components/select';
 import Input from '../../components/input';
+import Select from '../../components/select';
 import SideLayout from '../../components/side-layout';
+import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
+import { transformCategories } from '../../utils';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -15,6 +16,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    categories: state.catalog.categories,
   }));
 
   const callbacks = {
@@ -22,6 +24,11 @@ function CatalogFilter() {
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
+    // По категориям
+    onCategory: useCallback(
+      category => store.actions.catalog.setParams({ category, page: 1 }),
+      [store],
+    ),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
@@ -36,12 +43,18 @@ function CatalogFilter() {
       ],
       [],
     ),
+    categories: useMemo(() => transformCategories(select.categories), [select.categories]),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.categories}
+        value={select.categories}
+        onChange={callbacks.onCategory}
+      />
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
       <Input
         value={select.query}
