@@ -16,6 +16,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
     categories: state.catalog.categories,
   }));
 
@@ -52,7 +53,7 @@ function CatalogFilter() {
     <SideLayout padding="medium">
       <Select
         options={options.categories}
-        value={select.categories}
+        value={select.category}
         onChange={callbacks.onCategory}
       />
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
