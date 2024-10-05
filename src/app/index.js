@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import ProtectedLayout from '../components/protected-layout';
 import useSelector from '../hooks/use-selector';
 import Article from './article';
 import Basket from './basket';
@@ -14,7 +15,7 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   return (
-    <>
+    <ProtectedLayout>
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
@@ -23,7 +24,7 @@ function App() {
       </Routes>
 
       {activeModal === 'basket' && <Basket />}
-    </>
+    </ProtectedLayout>
   );
 }
 
