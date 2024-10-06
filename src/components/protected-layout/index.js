@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
 
 function ProtectedLayout({ children }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const store = useStore();
 
   const select = useSelector(state => ({
     isAuth: state.profile.isAuth,
@@ -18,6 +20,12 @@ function ProtectedLayout({ children }) {
       navigate('/login');
     }
   }, [select.isAuth, isProtectedPage, navigate]);
+
+  useLayoutEffect(() => {
+    if (select.isAuth) {
+      store.actions.profile.getProfile();
+    }
+  }, [store, select.isAuth]);
 
   return <>{children}</>;
 }

@@ -3,7 +3,6 @@ import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import ProfileActions from '../../components/profile-actions';
 import ProfileCard from '../../components/profile-card';
-import Spinner from '../../components/spinner';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
 import useSelector from '../../hooks/use-selector';
@@ -14,7 +13,6 @@ function Profile() {
 
   const select = useSelector(state => ({
     profile: state.profile.user,
-    waiting: state.profile.waiting,
   }));
 
   return (
@@ -24,9 +22,7 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <Spinner active={select.waiting}>
-        <ProfileCard t={t} profile={select.profile} />
-      </Spinner>
+      {select.profile && <ProfileCard t={t} profile={select.profile} />}
     </PageLayout>
   );
 }
