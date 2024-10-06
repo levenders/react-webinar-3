@@ -44,6 +44,7 @@ class Store {
    * article: Object,
    * locale: Object,
    * profile: Object,
+   * categories: Object,
    * }}
    */
   getState() {
