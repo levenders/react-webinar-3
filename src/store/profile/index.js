@@ -29,7 +29,7 @@ class ProfileState extends StoreModule {
       const json = await response.json();
 
       if (!response.ok) {
-        throw new Error(json.error.message);
+        throw new Error(json.error.data.issues[0].message);
       }
 
       this.setState({
@@ -57,7 +57,7 @@ class ProfileState extends StoreModule {
       });
 
       if (!response.ok) {
-        throw new Error(json.error.message);
+        throw new Error(json.error.data.issues[0].message);
       }
 
       this.resetToken();
@@ -83,7 +83,7 @@ class ProfileState extends StoreModule {
       const json = await response.json();
 
       if (!response.ok) {
-        throw new Error(json.error.message);
+        throw new Error(json.error.data.issues[0].message);
       }
 
       this.setState({
