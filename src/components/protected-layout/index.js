@@ -10,7 +10,7 @@ function ProtectedLayout({ children }) {
   const store = useStore();
 
   const select = useSelector(state => ({
-    isAuth: state.profile.isAuth,
+    isAuth: state.auth.isAuth,
   }));
 
   const isProtectedPage = pathname === '/profile';

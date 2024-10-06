@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
@@ -9,27 +9,21 @@ function ProfileActions({ t }) {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    isAuth: state.profile.isAuth,
-    profile: state.profile.user,
+    isAuth: state.auth.isAuth,
+    profileName: state.profile.user?.name,
   }));
 
   const callbacks = {
     logOut: useCallback(() => {
-      store.actions.profile.logOut();
+      store.actions.auth.logOut();
     }, [store]),
   };
-
-  useEffect(() => {
-    if (!select.isAuth) {
-      store.actions.profile.getProfile();
-    }
-  }, [select.isAuth]);
 
   return (
     <div className="ProfileActions">
       {select.isAuth ? (
         <>
-          <Link to={'/profile'}>{select.profile.name}</Link>
+          <Link to={'/profile'}>{select.profileName}</Link>
           <button onClick={() => callbacks.logOut()}>{t('profile.logout')}</button>
         </>
       ) : (

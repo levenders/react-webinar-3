@@ -45,6 +45,7 @@ class Store {
    * locale: Object,
    * profile: Object,
    * categories: Object,
+   * auth: Object,
    * }}
    */
   getState() {

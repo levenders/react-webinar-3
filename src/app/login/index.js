@@ -17,24 +17,24 @@ function Login() {
   const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    isAuth: state.profile.isAuth,
-    waiting: state.profile.waiting,
-    error: state.profile.error,
+    isAuth: state.auth.isAuth,
+    waiting: state.auth.waiting,
+    error: state.auth.error,
   }));
 
   const callbacks = {
     // Удаление из корзины
-    logIn: useCallback((login, password) => store.actions.profile.logIn(login, password), [store]),
+    logIn: useCallback((login, password) => store.actions.auth.logIn(login, password), [store]),
   };
 
   useEffect(() => {
-    if (select.isAuth) {
+    if (select.isAuth && !select.waiting) {
       navigate('/profile');
     }
   }, [select.isAuth]);
 
   useLayoutEffect(() => {
-    store.actions.profile.resetError();
+    store.actions.auth.resetError();
   }, []);
 
   return (
