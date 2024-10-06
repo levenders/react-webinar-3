@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback, useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FormLogin from '../../components/form-login';
 import Head from '../../components/head';
@@ -32,6 +32,10 @@ function Login() {
       navigate('/profile');
     }
   }, [select.isAuth]);
+
+  useLayoutEffect(() => {
+    store.actions.profile.resetError();
+  }, []);
 
   return (
     <PageLayout>

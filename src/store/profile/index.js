@@ -2,22 +2,23 @@ import StoreModule from '../module';
 
 class ProfileState extends StoreModule {
   initState() {
+    const token = this.getToken();
+    token && this.getProfile();
+
     return {
       user: {},
-      token: this.getToken(),
-      waiting: true,
-      error: '',
       isAuth: false,
+      waiting: false,
+      error: '',
     };
   }
 
   async logIn(login, password) {
-    this.setState({ ...this.getState(), waiting: true });
+    this.setState({ ...this.getState(), waiting: true }, 'Попытка авторизации');
     try {
       const response = await fetch('/api/v1/users/sign', {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -26,28 +27,33 @@ class ProfileState extends StoreModule {
         }),
       });
 
-      const json = await response.json();
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(json.error.data.issues[0].message);
+        throw new Error(data.error.data.issues[0].message);
       }
 
-      this.setState({
-        ...this.getState(),
-        token: json.result.token,
-        waiting: false,
-        isAuth: true,
-        error: '',
-      });
+      this.setState(
+        {
+          ...this.getState(),
+          waiting: false,
+          isAuth: true,
+          error: '',
+        },
+        'Пользователь авторизован',
+      );
     } catch (error) {
-      this.setState({ ...this.getState(), error: error.message, waiting: false });
+      this.setState(
+        { ...this.getState(), error: error.message, waiting: false },
+        'Авторизация прошла с ошибкой',
+      );
     }
   }
 
   async logOut() {
+    this.setState({ ...this.getState(), waiting: true }, 'Выход из системы');
     try {
-      this.setState({ ...this.getState(), waiting: true });
-      const token = this.getState().token;
+      const token = this.getToken();
       const response = await fetch('/api/v1/users/sign', {
         method: 'DELETE',
         headers: {
@@ -61,18 +67,19 @@ class ProfileState extends StoreModule {
       }
 
       this.resetToken();
-      this.setState(this.initState());
+      this.setState(this.initState(), 'Пользователь вышел из системы');
     } catch (error) {
-      this.setState({ ...this.getState(), error: error.message, waiting: false });
+      this.setState(
+        { ...this.getState(), error: error.message, waiting: false },
+        'Выход из системы произошел с ошибкой',
+      );
     }
   }
 
   async getProfile() {
+    this.setState({ ...this.getState(), waiting: true }, 'Получение профиля');
     try {
-      this.setState({ ...this.getState(), waiting: true });
-      this.getToken();
-      const token = this.getState().token;
-
+      const token = this.getToken();
       const response = await fetch('/api/v1/users/self?fields=*', {
         method: 'GET',
         headers: {
@@ -86,21 +93,35 @@ class ProfileState extends StoreModule {
         throw new Error(json.error.data.issues[0].message);
       }
 
-      this.setState({
-        ...this.getState(),
-        user: {
-          email: json.result.email,
-          name: json.result.profile.name,
-          phone: json.result.profile.phone,
-          username: json.result.username,
+      this.setState(
+        {
+          ...this.getState(),
+          user: {
+            email: json.result.email,
+            name: json.result.profile.name,
+            phone: json.result.profile.phone,
+            username: json.result.username,
+          },
+          waiting: false,
+          error: '',
+          isAuth: true,
         },
-        waiting: false,
-        error: '',
-        isAuth: true,
-      });
+        'Профиль получен',
+      );
     } catch (error) {
-      this.setState({ ...this.getState(), waiting: false });
+      this.setState({ ...this.getState(), waiting: false }, 'Профиль не получен');
     }
+  }
+
+  // Сброс ошибки авторизации
+  resetError() {
+    this.setState(
+      {
+        ...this.getState(),
+        error: '',
+      },
+      'Ошибки авторизации сброшены',
+    );
   }
 
   // Получение токена из cookies
