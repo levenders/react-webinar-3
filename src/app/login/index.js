@@ -13,6 +13,7 @@ import useTranslate from '../../hooks/use-translate';
 
 function Login() {
   const navigate = useNavigate();
+
   const store = useStore();
   const { t } = useTranslate();
 
@@ -27,9 +28,13 @@ function Login() {
     logIn: useCallback((login, password) => store.actions.auth.logIn(login, password), [store]),
   };
 
+  const toBack = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     if (select.isAuth && !select.waiting) {
-      navigate('/profile');
+      toBack();
     }
   }, [select.isAuth]);
 
