@@ -29,7 +29,7 @@ function ProfileActions({ t }) {
     <div className="ProfileActions">
       {select.isAuth ? (
         <>
-          <Link to={'/profile'}>{select.profile.username}</Link>
+          <Link to={'/profile'}>{select.profile.name}</Link>
           <button onClick={() => callbacks.logOut()}>{t('profile.logout')}</button>
         </>
       ) : (
