@@ -5,20 +5,27 @@
 .FormLogin-form {
   display: flex;
   flex-direction: column;
-  width: max-content;
+  gap: 20px;
 }
 
 .FormLogin-label {
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
+.FormLogin-input {
+  width: 203px;
+  height: 26px;
+}
+
 .FormLogin-error {
-  margin: 0 0 20px;
+  margin: 0;
   color: #ff0000;
 }
 
 .FormLogin-button {
-  width: max-content;
+  width: 53px;
+  height: 21px;
+  border-radius: 2px;
+  border: 1px solid #767676;
 }

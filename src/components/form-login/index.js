@@ -16,11 +16,11 @@ function FormLogin({ onLogin, t, error }) {
       <form className={cn('form')} onSubmit={e => onSubmit(e)}>
         <label className={cn('label')}>
           {t('profile.label.login')}
-          <input type="text" name="login" />
+          <input className={cn('input')} type="text" name="login" />
         </label>
         <label className={cn('label')}>
           {t('profile.label.password')}
-          <input type="password" name="password" />
+          <input className={cn('input')} type="password" name="password" />
         </label>
         {error && <p className={cn('error')}>{error}</p>}
         <button type="submit" className={cn('button')}>

@@ -3,4 +3,5 @@
   display: flex;
   justify-content: end;
   gap: 20px;
+  border-bottom: 1px solid #dcdcdc;
 }
