@@ -1,0 +1,16 @@
+.GuestComment {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 30px;
+}
+
+.GuestComment-button {
+  margin-left: 2px;
+  border: none;
+  background-color: white;
+  font-size: inherit;
+  color: gray;
+  text-decoration: underline;
+  cursor: pointer;
+}
