@@ -1,0 +1,29 @@
+.Comment-user-date {
+  display: flex;
+  font-size: 12px;
+  gap: 10px;
+}
+
+.Comment-user {
+  font-weight: bold;
+}
+
+.Comment-date {
+  color: #666666;
+}
+
+.Comment-text {
+  margin: 10px 0;
+  padding-right: 20px;
+  font-size: 14px;
+}
+
+.Comment-answer-btn {
+  cursor: pointer;
+  color: #0087e9;
+  padding: 0;
+  margin-bottom: 26px;
+  background-color: transparent;
+  border: none;
+  font-size: 12px;
+}
