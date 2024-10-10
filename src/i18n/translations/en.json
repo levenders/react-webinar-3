@@ -20,5 +20,17 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+
+  "comments.title": "Comments",
+  "comments.newComment": "New comment",
+  "comments.answer": "Answer",
+  "comments.send": "Send",
+  "comments.cancel": "Cancel",
+  "comments.login": "Sign in",
+  "comments.notAuth": " to leave a comment",
+  "comments.noAuthText": " to leave an answer",
+  "comments.newAnswer": "New answer",
+  "comments.placeholder": "Text",
+  "comments.deleteComment": "Comment deleted"
 }
