@@ -1,6 +1,6 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { dateParser } from '../../utils/date-parser';
 import CommentForm from '../comment-form';
 import CommentList from '../comment-list';
@@ -28,6 +28,16 @@ function Comment({
 
   const hasChildren = Boolean(children?.length);
   const isUsersComment = Boolean(author?.profile?.name === userName);
+
+  const isFormShow = isAuth && isOpenComment === _id;
+
+  const formItem = useRef(null);
+
+  useEffect(() => {
+    if (isFormShow && formItem.current) {
+      formItem.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [isFormShow]);
 
   return (
     <div className={cn()}>
@@ -67,7 +77,19 @@ function Comment({
           isChildList
           maxDepth={maxDepth + 1}
           t={t}
-        />
+        >
+          {isFormShow && (
+            <li ref={formItem}>
+              <CommentForm
+                onAdd={handleAddAnswer}
+                onCancel={onCancel}
+                title={t('comments.newAnswer')}
+                cancelButtonText={t('comments.cancel')}
+                t={t}
+              />
+            </li>
+          )}
+        </CommentList>
       )}
     </div>
   );

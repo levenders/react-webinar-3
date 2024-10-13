@@ -1,10 +1,11 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import { memo, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import './style.css';
 
 function CommentForm({ onAdd, onCancel, title, cancelButtonText, t }) {
   const cn = bem('CommentForm');
+  const ref = useRef(null);
 
   const [textInput, setTextInput] = useState('');
 
@@ -28,6 +29,7 @@ function CommentForm({ onAdd, onCancel, title, cancelButtonText, t }) {
         onChange={e => setTextInput(e.target.value)}
         className={cn('textarea')}
         placeholder={t('comments.placeholder')}
+        ref={ref}
       />
       <div className={cn('actions')}>
         <button type="submit">{t('comments.send')}</button>

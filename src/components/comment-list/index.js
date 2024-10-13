@@ -15,6 +15,7 @@ function CommentList({
   isAuth,
   maxDepth,
   userName,
+  children,
 }) {
   const cn = bem('CommentList');
 
@@ -35,6 +36,7 @@ function CommentList({
           />
         </li>
       ))}
+      {children}
     </ul>
   );
 }
