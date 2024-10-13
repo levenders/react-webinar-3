@@ -4,7 +4,7 @@ import { memo, useMemo, useState } from 'react';
 import CommentForm from '../../components/comment-form';
 import CommentList from '../../components/comment-list';
 import GuestComment from '../../components/guest-comment';
-import { buildComments } from '../../utils/build-comments';
+import listToTree from '../../utils/list-to-tree/index';
 import './style.css';
 
 function CommentsZone({ comments, count, t, articleId, onAdd, isAuth }) {
@@ -18,9 +18,13 @@ function CommentsZone({ comments, count, t, articleId, onAdd, isAuth }) {
     onCancel: () => setIsOpenComment(null),
   };
 
-  const builtComments = useMemo(() => buildComments(comments), [comments]);
+  const builtComments = useMemo(() => {
+    const commentsTree = listToTree(comments);
+    return commentsTree.length > 0 ? commentsTree[0].children : [];
+  }, [comments]);
 
   const hasBuiltCommentsExist = Boolean(builtComments.length);
+  const maxDepth = Math.min(4, ...builtComments.map(comment => comment.level || 1));
 
   return (
     <div className={cn()}>
@@ -35,6 +39,7 @@ function CommentsZone({ comments, count, t, articleId, onAdd, isAuth }) {
           onCancel={callbacks.onCancel}
           onOpen={setIsOpenComment}
           isAuth={isAuth}
+          maxDepth={maxDepth}
           t={t}
         />
       )}

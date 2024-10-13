@@ -7,7 +7,17 @@ import CommentList from '../comment-list';
 import GuestComment from '../guest-comment';
 import './style.css';
 
-function Comment({ comment, isOpenComment, onCancel, onAdd, onOpen, isAuth, t, userName }) {
+function Comment({
+  comment,
+  isOpenComment,
+  onCancel,
+  onAdd,
+  onOpen,
+  isAuth,
+  maxDepth,
+  t,
+  userName,
+}) {
   const cn = bem('Comment');
 
   const { author, text, dateCreate, isDeleted, children, _id } = comment;
@@ -55,6 +65,7 @@ function Comment({ comment, isOpenComment, onCancel, onAdd, onOpen, isAuth, t, u
           onOpen={onOpen}
           isAuth={isAuth}
           isChildList
+          maxDepth={maxDepth + 1}
           t={t}
         />
       )}

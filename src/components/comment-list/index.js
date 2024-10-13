@@ -13,12 +13,13 @@ function CommentList({
   t,
   isChildList,
   isAuth,
+  maxDepth,
   userName,
 }) {
   const cn = bem('CommentList');
 
   return (
-    <ul className={cn({ child: isChildList })}>
+    <ul className={cn({ child: isChildList, depth: maxDepth <= 4 && maxDepth >= 2 })}>
       {comments?.map(commentItem => (
         <li key={commentItem._id}>
           <Comment
@@ -29,6 +30,7 @@ function CommentList({
             onOpen={onOpen}
             isAuth={isAuth}
             userName={userName}
+            maxDepth={maxDepth}
             t={t}
           />
         </li>
