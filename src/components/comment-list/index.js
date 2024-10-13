@@ -4,7 +4,17 @@ import { memo } from 'react';
 import Comment from '../comment';
 import './style.css';
 
-function CommentList({ comments, onAdd, isOpenComment, onCancel, onOpen, t, isChildList, isAuth }) {
+function CommentList({
+  comments,
+  onAdd,
+  isOpenComment,
+  onCancel,
+  onOpen,
+  t,
+  isChildList,
+  isAuth,
+  userName,
+}) {
   const cn = bem('CommentList');
 
   return (
@@ -18,6 +28,7 @@ function CommentList({ comments, onAdd, isOpenComment, onCancel, onOpen, t, isCh
             onCancel={onCancel}
             onOpen={onOpen}
             isAuth={isAuth}
+            userName={userName}
             t={t}
           />
         </li>
@@ -34,6 +45,7 @@ CommentList.propTypes = {
   onOpen: PropTypes.func,
   isChildList: PropTypes.bool,
   isAuth: PropTypes.bool,
+  userName: PropTypes.string,
   t: PropTypes.func,
 };
 

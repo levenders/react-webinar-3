@@ -7,8 +7,9 @@ import CommentList from '../comment-list';
 import GuestComment from '../guest-comment';
 import './style.css';
 
-function Comment({ comment, isOpenComment, onCancel, onAdd, onOpen, isAuth, t }) {
+function Comment({ comment, isOpenComment, onCancel, onAdd, onOpen, isAuth, t, userName }) {
   const cn = bem('Comment');
+
   const { author, text, dateCreate, isDeleted, children, _id } = comment;
 
   const handleAddAnswer = (text, onSuccess) => {
@@ -16,11 +17,12 @@ function Comment({ comment, isOpenComment, onCancel, onAdd, onOpen, isAuth, t })
   };
 
   const hasChildren = Boolean(children?.length);
+  const isUsersComment = Boolean(author?.profile?.name === userName);
 
   return (
     <div className={cn()}>
       <div className={cn('user-date')}>
-        <div className={cn('user')}>{author.profile.name}</div>
+        <div className={cn('user', { currentUser: isUsersComment })}>{author.profile.name}</div>
         <div className={cn('date')}>{dateParser(dateCreate)}</div>
       </div>
       <p className={cn('text')}>{isDeleted ? t('comments.deleteComment') : text}</p>
@@ -81,6 +83,7 @@ Comment.propTypes = {
   onAdd: PropTypes.func,
   onOpen: PropTypes.func,
   isAuth: PropTypes.bool,
+  userName: PropTypes.string,
   t: PropTypes.func,
 };
 

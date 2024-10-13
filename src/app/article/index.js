@@ -71,6 +71,7 @@ function Article() {
           articleId={params.id}
           onAdd={callbacks.addComment}
           isAuth={isAuth}
+          userName={userName}
           t={t}
         />
       </Spinner>
